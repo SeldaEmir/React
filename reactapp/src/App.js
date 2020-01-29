@@ -1,54 +1,36 @@
-import React,{Component} from 'react';
-import Navbar from "./components/Navbar"
-import './App.css';
-import Users from './components/Users';
+import React, { Component } from 'react'
+import './App.css'
+import Navbar from './layout/Navbar'
+import AddUser from './forms/AddUser'
+import UpdateUser from './forms/UpdateUser'
+import Users from './components/Users'
+import NotFound from './pages/NotFound'
+import Contribute from './pages/Contribute'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-class App extends Component{
+class App extends Component {
+    // <Navbar title = "User App"/>
+    //      <hr/>
+    //       <AddUser/>
+    //       <Users/>
+    render() {
+        return (
+            <Router>
+                <div className="container">
+                    <Navbar title="User App" />
+                    <hr />
 
-  state = {
-    users: [
-      {
-        id : 1,
-        name: "Fatma",
-        salary: "10000",
-        department: "Bilişim"
-      },
-      {
-        id : 2,
-        name: "Ayşe",
-        salary: "4000",
-        department: "Üretim"
-      },
-      {
-        id : 3,
-        name: "Zeynep",
-        salary: "9000",
-        department: "Pazarlama"
-      },
-
-    {
-      id: 4,
-      name: "Mert",
-      salary: "8000",
-      department: "ArGe"
+                    <Switch>
+                        <Route exact path="/" component={Users} />
+                        <Route exact path="/add" component={AddUser} />
+                        <Route exact path="/github" component={Contribute} />
+                        <Route exact path="/edit/:id" component={UpdateUser} />
+                        <Route component={NotFound} />
+                    </Switch>
+                </div>
+            </Router>
+        )
     }
-    ]
-  }
-  deleteUser = (id) =>{
-    this.setState({
-      users : this.state.users.filter(user => id !== user.id)
-    })
-  }
-  render() {
-  return (
-    <div className="container">
-      <Navbar title = "User App"/>
-      <hr/>
-      <Users deleteUser = {this.deleteUser} users = {this.state.users}/>
-
-    </div>
-  );
-}
 }
 
-export default App;
+export default App
